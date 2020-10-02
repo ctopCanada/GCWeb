@@ -33,7 +33,7 @@ var $document = wb.doc,
 		"removeClass",
 		"tblfilter",
 		"withInput",
-		"open",
+		"openDialog",
 		"run"
 	].join( "." + actionEvent + " " ) + "." + actionEvent,
 
@@ -165,9 +165,9 @@ var $document = wb.doc,
 		$elm.addClass( data.class );
 	},
 
-	/* open action start
+	/* openDialog action start
 	Open overlay action
-	data-wb-doaction='{ "action": "open", "source": "#id" }'
+	data-wb-doaction='{ "action": "openDialog", "source": "#id" }'
 	*/
 	openDialog = function( event, data ) {
 		var $elm = $( data.source || event.target );
@@ -572,7 +572,7 @@ $document.on( actionMngEvent, selector, function( event, data ) {
 		case "addClass":
 			addClassAct( event, data );
 			break;
-		case "open":
+		case "openDialog":
 			openDialog( event, data );
 			break;
 		case "removeClass":

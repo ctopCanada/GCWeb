@@ -1,0 +1,34 @@
+/*
+  WET-BOEW
+  @title: Extra-small view and under (screen only)
+ */
+
+/* Make a simple list multi-column and responsive (overide _defaults.scss) */
+
+/*
+ *
+ * Web Experience Toolkit (WET) / Boîte à outils de l'expérience Web (BOEW)
+ * wet-boew.github.io/wet-boew/License-en.html / wet-boew.github.io/wet-boew/Licence-fr.html
+ *
+ *
+ *	Provisional bubble wrap
+*/
+
+.wb-bubble-wrap {
+		right: 10px;
+	p .notif-close {
+		font-size: 2em;
+		height: 35px;
+		line-height: 1.1em;
+		right: 90%;
+		width: 35px;
+	}
+}
+
+.wb-bubble-noscroll {
+		overflow: hidden !important;
+}
+
+.wb-bubble-contained .body {
+		padding-bottom: 10px; 
+}
