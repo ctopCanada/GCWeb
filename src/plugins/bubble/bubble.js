@@ -30,27 +30,26 @@ var componentName = "wb-bubble",
 		// Hide basic form on load, show chat bubble instead
 		$selector.fadeIn( "slow" );
 
-		// Add some white space over the footer for the bubble to sit
-		$footer.addClass( componentName + "-mrgn" );
-
 		// Ensure that the bubble does not go passed the footer
 		if ( $footer.length ) {
+
+			// Add some white space over the footer for the bubble to sit
+			$footer.addClass( componentName + "-mrgn" );
 
 			// Keep the bubble sticky while scrolling Y until user reaches the footer
 			var stickyUntilFooter = function( $element ) {
 
-
 				// Equals to bubble default bottom value in CSS
-				var bottomY = $( "main p" ).height();
+				var bottomY = $( "main p" ).eq( 0 ).height() || 30;
 				var $window = $( window );
 
 				if ( $window .scrollTop() >= $document.outerHeight() - $window .outerHeight() - $footer.outerHeight() ) {
-					$element.css( {
-						bottom: ( $footer.outerHeight() - ( $document.outerHeight() - $window.outerHeight() - $window.scrollTop() ) + bottomY )
+				$element.css( {
+					bottom: ( $footer.outerHeight() - ( $document.outerHeight() - $window.outerHeight() - $window.scrollTop() ) + bottomY )
 					} );
 				} else {
-					$element.css( {
-						bottom: bottomY
+				$element.css( {
+					bottom: bottomY
 					} );
 				}
 			};
@@ -91,22 +90,24 @@ var componentName = "wb-bubble",
 		if ( elm ) {
 			$elm = $( elm );
 
-			var $bubbleElm = $( "<div class='" + componentName + "-wrap' id=\"adafds\"></div>" );
+			var $bubbleElm = $( "<div class='" + componentName + "-wrap'></div>" );
 			$elm.wrap( $bubbleElm );
-
-			var li = document.createElement( "li" );
-			li.className = "wb-slc";
-
-			// Append the Basic HTML version link version
-			var data_wb_doaction_json = JSON.parse( $elm.attr( "data-wb-doaction" ) );
-
-			if ( data_wb_doaction_json ) {
-				li.innerHTML = "<button  data-wb-doaction='{ \"action\": \"open\", \"source\": " + "\"" + data_wb_doaction_json.source + "\"" + " }' class=\"wb-sl\" >" + $elm.text() + "</button>";
-			}
 
 			// Add linke to the top page skip link.
 			var list = document.getElementById( "wb-tphp" );
-			list.insertBefore( li, list.childNodes[ 0 ] );
+			if ( list ) {
+
+				var li = document.createElement( "li" );
+				li.className = "wb-slc";
+
+				// Append the Basic HTML version link version
+				if ( $elm.attr( "data-wb-doaction" ) ) {
+					li.innerHTML = "<button  data-wb-doaction='" + $elm.attr( "data-wb-doaction" ) +"' class=\"wb-sl\" >" + $elm.text() + "</button>"
+				}
+
+				// Add button at the first poisiton of the li
+				list.insertBefore( li, list.childNodes[ 0 ] );
+			}
 
 			// Initiate chat wizard bubble
 			adjustBubbleMargin( $elm.parent() );
