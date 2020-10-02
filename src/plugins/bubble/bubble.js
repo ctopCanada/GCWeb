@@ -39,19 +39,19 @@ var componentName = "wb-bubble",
 			// Keep the bubble sticky while scrolling Y until user reaches the footer
 			var stickyUntilFooter = function( $element ) {
 
-				// Equals to bubble default bottom value in CSS
+			// Equals to bubble default bottom value in CSS
 				var bottomY = $( "main p" ).eq( 0 ).height() || 30;
 				var $window = $( window );
 
 				if ( $window .scrollTop() >= $document.outerHeight() - $window .outerHeight() - $footer.outerHeight() ) {
 				$element.css( {
 					bottom: ( $footer.outerHeight() - ( $document.outerHeight() - $window.outerHeight() - $window.scrollTop() ) + bottomY )
-					} );
-				} else {
+				} );
+			} else {
 				$element.css( {
 					bottom: bottomY
-					} );
-				}
+				} );
+			}
 			};
 
 			// Correct bubble positionning on load, on resize an on Y scroll if necessary
@@ -102,7 +102,7 @@ var componentName = "wb-bubble",
 
 				// Append the Basic HTML version link version
 				if ( $elm.attr( "data-wb-doaction" ) ) {
-					li.innerHTML = "<button  data-wb-doaction='" + $elm.attr( "data-wb-doaction" ) +"' class=\"wb-sl\" >" + $elm.text() + "</button>"
+					li.innerHTML = "<button  data-wb-doaction='" + $elm.attr( "data-wb-doaction" ) +"' class=\"wb-sl\" >" + $elm.text() + "</button>";
 				}
 
 				// Add button at the first poisiton of the li
