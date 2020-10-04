@@ -86,12 +86,12 @@ var componentName = "wb-bubble",
 		var item = {
 			value: value,
 			expiry: now.getTime() + ttl
-		};
+		}
 		localStorage.setItem( key, JSON.stringify( item ) );
 	},
 
 	getNotificationStatusWithExpiry = function getNotificationStatusWithExpiry( key ) {
-		var itemStr = localStorage.getItem( key );
+		var itemStr = localStorage.getItem( key )
 
 		// if the item doesn't exist, return null
 		if ( !itemStr ) {
@@ -102,7 +102,6 @@ var componentName = "wb-bubble",
 
 		// compare the expiry time of the item with the current time
 		if ( now.getTime() > item.expiry ) {
-
 			// If the item is expired, delete the item from storage
 			// and return null
 			localStorage.removeItem( key );
@@ -133,8 +132,8 @@ var componentName = "wb-bubble",
 			var data_wb_doaction_json = JSON.parse( $elm.attr( "data-wb-doaction" ) );
 			isNotif = getNotificationStatusWithExpiry( componentName + "-notif" );
 
-			var $notification = ( !isNotif ? "<p class=\"trans-left\">\r\n" +
-			"<span class=\"notif\">" + data_wb_doaction_json.notification +"</span>\r\n" +
+			var $notification = ( !isNotif ? "<p class=\"trans-left\">\r\n" + 
+			"<span class=\"notif\">" + data_wb_doaction_json.notification +"</span>\r\n" + 
 			"<a href=\"#\" class=\"notif-close\" title=\"Close chat notification\" aria-label=\"Close chat notification\" role=\"button\">×</a>" : "" );
 
 			$elm.parent().append( $notification );
