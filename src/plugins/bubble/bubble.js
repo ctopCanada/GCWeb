@@ -44,8 +44,6 @@ var componentName = "wb-bubble",
 				var $window = $( window );
 
 				if ( $window .scrollTop() >= $document.outerHeight() - $window .outerHeight() - $footer.outerHeight() ) {
-
-
 					$element.css( {
 					bottom: ( $footer.outerHeight() - ( $document.outerHeight() - $window.outerHeight() - $window.scrollTop() ) + bottomY )
 				} );
@@ -55,7 +53,6 @@ var componentName = "wb-bubble",
 					} );
 				}
 			};
-
 			// Correct bubble positionning on load, on resize an on Y scroll if necessary
 			stickyUntilFooter( $selector );
 
