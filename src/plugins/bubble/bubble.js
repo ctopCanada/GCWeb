@@ -45,13 +45,14 @@ var componentName = "wb-bubble",
 
 				if ( $window .scrollTop() >= $document.outerHeight() - $window .outerHeight() - $footer.outerHeight() ) {
 
+
 					$element.css( {
 					bottom: ( $footer.outerHeight() - ( $document.outerHeight() - $window.outerHeight() - $window.scrollTop() ) + bottomY )
 				} );
 				} else {
 					$element.css( {
-					bottom: bottomY
-				} );
+						bottom: bottomY
+					} );
 				}
 			};
 
@@ -103,7 +104,7 @@ var componentName = "wb-bubble",
 
 				// Append the Basic HTML version link version
 				if ( $elm.attr( "data-wb-doaction" ) ) {
-					li.innerHTML = "<button  data-wb-doaction='" + $elm.attr( "data-wb-doaction" ) +"' class=\"wb-sl\" >" + $elm.text() + "</button>";
+					li.innerHTML = "<button  data-wb-doaction='" + $elm.attr( "data-wb-doaction" ) + "' class=\"wb-sl\" >" + $elm.text() + "</button>";
 				}
 
 				// Add button at the first poisiton of the li
