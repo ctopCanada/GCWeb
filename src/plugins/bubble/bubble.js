@@ -79,11 +79,11 @@ var componentName = "wb-bubble",
 
 
 	setNotificationStatusWithExpiry = function setNotificationStatusWithExpiry(key, value, ttl) {
-		const now = new Date()
+		var now = new Date()
 	
 		// `item` is an object which contains the original value
 		// as well as the time when it's supposed to expire
-		const item = {
+		var item = {
 			value: value,
 			expiry: now.getTime() + ttl,
 		}
@@ -91,13 +91,13 @@ var componentName = "wb-bubble",
 	},
 
 	getNotificationStatusWithExpiry = function getNotificationStatusWithExpiry(key) {
-		const itemStr = localStorage.getItem(key)
+		var itemStr = localStorage.getItem(key)
 		// if the item doesn't exist, return null
 		if (!itemStr) {
 			return null;
 		}
-		const item = JSON.parse(itemStr)
-		const now = new Date()
+		var item = JSON.parse(itemStr)
+		var now = new Date()
 		// compare the expiry time of the item with the current time
 		if (now.getTime() > item.expiry) {
 			// If the item is expired, delete the item from storage
