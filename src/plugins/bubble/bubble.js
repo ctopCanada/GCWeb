@@ -71,42 +71,46 @@ var componentName = "wb-bubble",
 			$( this ).parent().hide();
 			$selector.focus();
 
-			// Do not show notification until 7 days 
-			var daySevenInMillionSeconds = 1000 * 60 * 60 * 24 * 7; 
-			setNotificationStatusWithExpiry( componentName + "-notif", 1, daySevenInMillionSeconds)
+			// Do not show notification until 7 days
+			var daySevenInMillionSeconds = 1000 * 60 * 60 * 24 * 7;
+			setNotificationStatusWithExpiry( componentName + "-notif", 1, daySevenInMillionSeconds );
 		} );
 	},
 
 
-	setNotificationStatusWithExpiry = function setNotificationStatusWithExpiry(key, value, ttl) {
-		var now = new Date()
-	
+	setNotificationStatusWithExpiry = function setNotificationStatusWithExpiry( key, value, ttl ) {
+		var now = new Date();
+
 		// `item` is an object which contains the original value
 		// as well as the time when it's supposed to expire
 		var item = {
 			value: value,
-			expiry: now.getTime() + ttl,
-		}
-		localStorage.setItem(key, JSON.stringify(item))
+			expiry: now.getTime() + ttl
+		};
+		localStorage.setItem( key, JSON.stringify( item ) );
 	},
 
-	getNotificationStatusWithExpiry = function getNotificationStatusWithExpiry(key) {
-		var itemStr = localStorage.getItem(key)
+	getNotificationStatusWithExpiry = function getNotificationStatusWithExpiry( key ) {
+		var itemStr = localStorage.getItem( key );
+
 		// if the item doesn't exist, return null
-		if (!itemStr) {
+		if ( !itemStr ) {
 			return null;
 		}
-		var item = JSON.parse(itemStr)
-		var now = new Date()
+		var item = JSON.parse( itemStr );
+		var now = new Date();
+
 		// compare the expiry time of the item with the current time
-		if (now.getTime() > item.expiry) {
+		if ( now.getTime() > item.expiry ) {
+
 			// If the item is expired, delete the item from storage
 			// and return null
-			localStorage.removeItem(key)
+			localStorage.removeItem( key );
 			return null;
 		}
 		return item.value;
 	},
+
 
 /**
 	 * @method init
@@ -127,10 +131,10 @@ var componentName = "wb-bubble",
 
 			// Get JSON object to retrieve notification message
 			var data_wb_doaction_json = JSON.parse( $elm.attr( "data-wb-doaction" ) );
-			isNotif = getNotificationStatusWithExpiry( componentName + "-notif" )
-			
-			var $notification = ( !isNotif ? "<p class=\"trans-left\">\r\n" + 
-			"<span class=\"notif\">" + data_wb_doaction_json.notification +"</span>\r\n" + 
+			isNotif = getNotificationStatusWithExpiry( componentName + "-notif" );
+
+			var $notification = ( !isNotif ? "<p class=\"trans-left\">\r\n" +
+			"<span class=\"notif\">" + data_wb_doaction_json.notification +"</span>\r\n" +
 			"<a href=\"#\" class=\"notif-close\" title=\"Close chat notification\" aria-label=\"Close chat notification\" role=\"button\">×</a>" : "" );
 
 			$elm.parent().append( $notification );
