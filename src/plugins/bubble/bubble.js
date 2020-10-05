@@ -134,7 +134,7 @@ var componentName = "wb-bubble",
 			isNotif = getNotificationStatusWithExpiry( componentName + "-notif" );
 
 			var $notification = ( !isNotif ? "<p class=\"trans-left\">\r\n" +
-			"<span class=\"notif\">" + data_wb_doaction_json.notification +"</span>\r\n" +
+			"<span class=\"notif\">" + data_wb_doaction_json.notification + "</span>\r\n" +
 			"<a href=\"#\" class=\"notif-close\" title=\"Close chat notification\" aria-label=\"Close chat notification\" role=\"button\">×</a>" : "" );
 
 			$elm.parent().append( $notification );
