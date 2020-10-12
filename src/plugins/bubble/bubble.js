@@ -18,6 +18,7 @@ var componentName = "wb-bubble",
 	initEvent = "wb-init" + selector,
 	isNotif,
 	$document = wb.doc,
+	daySevenInMillionSeconds = 1000 * 60 * 60 * 24 * 7,// millisecond for 7 days
 
 	/**
 	 * Initiate chat wizard bubble
@@ -64,51 +65,26 @@ var componentName = "wb-bubble",
 		} else {
 			$( "main" ).after( "<footer id=\"wb-info\" class=\"" + componentName + "-mrgn" + "\"></footer>" );
 		}
-
-		// Close notification aside bubble
-		$( ".notif-close", $selector ).on( "click", function( event ) {
-			event.preventDefault();
-			$( this ).parent().hide();
-			$selector.focus();
-
-			// Do not show notification until 7 days
-			var daySevenInMillionSeconds = 1000 * 60 * 60 * 24 * 7;
-			setNotificationStatusWithExpiry( componentName + "-notif", 1, daySevenInMillionSeconds );
-		} );
 	},
 
 
-	setNotificationStatusWithExpiry = function setNotificationStatusWithExpiry( key, value, ttl ) {
+	setNotificationStatusWithExpiry = function( key, ttl ) {
 		var now = new Date();
-
-		// `item` is an object which contains the original value
-		// as well as the time when it's supposed to expire
-		var item = {
-			value: value,
-			expiry: now.getTime() + ttl
-		};
-		localStorage.setItem( key, JSON.stringify( item ) );
+		localStorage.setItem( key, now.getTime() + ttl );
 	},
 
-	getNotificationStatusWithExpiry = function getNotificationStatusWithExpiry( key ) {
-		var itemStr = localStorage.getItem( key );
-
-		// if the item doesn't exist, return null
-		if ( !itemStr ) {
-			return null;
-		}
-		var item = JSON.parse( itemStr );
+	getNotificationStatusWithExpiry = function( key ) {
+		var expiryTimeValue = localStorage.getItem( key );
 		var now = new Date();
 
 		// compare the expiry time of the item with the current time
-		if ( now.getTime() > item.expiry ) {
-
+		if ( now.getTime() > expiryTimeValue ) {
 			// If the item is expired, delete the item from storage
 			// and return null
 			localStorage.removeItem( key );
 			return null;
 		}
-		return item.value;
+		return expiryTimeValue;
 	},
 
 
@@ -129,12 +105,11 @@ var componentName = "wb-bubble",
 			var $bubbleElm = $( "<div class='" + componentName + "-wrap'></div>" );
 			$elm.wrap( $bubbleElm );
 
-			// Get JSON object to retrieve notification message
-			var data_wb_doaction_json = JSON.parse( $elm.attr( "data-wb-doaction" ) );
+			// Get notification status to check if it is still valid after TTL
 			isNotif = getNotificationStatusWithExpiry( componentName + "-notif" );
 
 			var $notification = ( !isNotif ? "<p class=\"trans-left\">\r\n" +
-			"<span class=\"notif\">" + data_wb_doaction_json.notification + "</span>\r\n" +
+			"<span class=\"notif\">" + $elm.text() + "</span>\r\n" +
 			"<a href=\"#\" class=\"notif-close\" title=\"Close chat notification\" aria-label=\"Close chat notification\" role=\"button\">×</a>" : "" );
 
 			$elm.parent().append( $notification );
@@ -167,6 +142,16 @@ var componentName = "wb-bubble",
 $( ".notif", selector ).on( "click", function() {
 	var $link = $( selector + "-link" );
 	$link.click();
+} );
+
+
+// Close notification aside bubble
+$( ".notif-close", $selector ).on( "click", function( event ) {
+	event.preventDefault();
+	$( this ).parent().hide();
+	$selector.focus();
+	// Do not show notification until 7 days
+	setNotificationStatusWithExpiry( componentName + "-notif", daySevenInMillionSeconds );
 } );
 
 // Bind the init event of the plugin
