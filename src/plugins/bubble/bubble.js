@@ -151,6 +151,7 @@ $( ".notif-close", selector ).on( "click", function( event ) {
 	event.preventDefault();
 	$( this ).parent().hide();
 	selector.focus();
+
 	// Do not show notification until 7 days
 	setNotificationStatusWithExpiry( componentName + "-notif", daySevenInMillionSeconds );
 } );
